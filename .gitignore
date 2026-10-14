@@ -1,0 +1,36 @@
+# Secrets & Configuration
+.ftp-config.json
+ftp-config.json
+
+# Composer & Dependencies
+vendor/
+composer.lock
+composer.phar
+
+# PHPUnit & Testing Caches
+.phpunit.cache/
+.phpunit.result.cache
+tests/
+scratch/
+
+# Build Artefacts & Distributions
+wpcalibrate-timeline-builder/
+*.zip
+
+# Internal Tooling & Automation
+sync-ftp.ps1
+build-release.ps1
+
+# AI Instructions, Memories & Planning (Internal only)
+.agents/
+.claude/
+CLAUDE.md
+PROJECT_MEMORY.md
+TROUBLESHOOTING.md
+CHANGELOG_AI.md
+TODO_AI.md
+
+# Operating System & Logs
+.DS_Store
+Thumbs.db
+*.log

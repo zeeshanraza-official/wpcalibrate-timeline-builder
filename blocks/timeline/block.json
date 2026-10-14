@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "wpcalibrate/timeline",
+  "version": "1.0.0",
+  "title": "WPCalibrate Timeline",
+  "category": "widgets",
+  "icon": "clock",
+  "description": "Display a responsive vertical or horizontal timeline created with WPCalibrate Timeline Builder.",
+  "keywords": [ "timeline", "history", "roadmap", "milestone", "wpcalibrate" ],
+  "textdomain": "wpcalibrate-timeline-builder",
+  "attributes": {
+    "timelineId": {
+      "type": "integer",
+      "default": 0
+    },
+    "layout": {
+      "type": "string",
+      "default": ""
+    },
+    "preset": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [ "wide", "full" ]
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css"
+}

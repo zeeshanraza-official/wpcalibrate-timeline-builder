@@ -1,0 +1,33 @@
+{
+  "name": "wpcalibrate/wpcalibrate-timeline-builder",
+  "description": "Responsive timeline and milestone builder for WordPress by WPCalibrate.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "WPCalibrate",
+      "email": "support@wpcalibrate.com",
+      "homepage": "https://wpcalibrate.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0 || ^11.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "WPCalibrate\\TimelineBuilder\\": "includes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "WPCalibrate\\TimelineBuilder\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}

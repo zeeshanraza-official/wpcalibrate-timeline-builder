@@ -1,0 +1,720 @@
+/**
+ * WPCalibrate Timeline Builder - Frontend Stylesheet
+ * High-performance, responsive, accessible layouts for vertical & horizontal timelines.
+ */
+
+:root {
+	--wpcal-accent: #2563eb;
+	--wpcal-line: #e2e8f0;
+	--wpcal-marker: #2563eb;
+	--wpcal-marker-size: 18px;
+	--wpcal-card-bg: #ffffff;
+	--wpcal-card-border: #e2e8f0;
+	--wpcal-border-radius: 8px;
+	--wpcal-text: #1e293b;
+	--wpcal-date: #64748b;
+	--wpcal-max-width: 1000px;
+}
+
+/* ==========================================================================
+   Base Container
+   ========================================================================== */
+
+.wpcal-timeline-wrap {
+	box-sizing: border-box;
+	max-width: var(--wpcal-max-width, 1000px);
+	margin: 2.5rem auto;
+	padding: 1rem 0;
+	position: relative;
+	color: var(--wpcal-text, #1e293b);
+	font-family: inherit;
+	line-height: 1.6;
+}
+
+.wpcal-timeline-wrap *,
+.wpcal-timeline-wrap *::before,
+.wpcal-timeline-wrap *::after {
+	box-sizing: border-box;
+}
+
+/* Empty State */
+.wpcal-timeline-empty {
+	text-align: center;
+	padding: 3rem 1.5rem;
+	background: #f8fafc;
+	border: 1px dashed var(--wpcal-card-border, #e2e8f0);
+	border-radius: var(--wpcal-border-radius, 8px);
+	color: var(--wpcal-date, #64748b);
+}
+
+/* ==========================================================================
+   Filter Controls
+   ========================================================================== */
+
+.wpcal-timeline-filters {
+	display: flex;
+	flex-direction: column;
+	gap: 0.85rem;
+	margin-bottom: 2.5rem;
+	align-items: center;
+}
+
+.wpcal-filter-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	justify-content: center;
+}
+
+.wpcal-filter-btn {
+	background: #ffffff;
+	color: #475569;
+	border: 1px solid #cbd5e1;
+	border-radius: 9999px;
+	padding: 0.4rem 1rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+	line-height: 1.4;
+}
+
+.wpcal-filter-btn:hover {
+	background: #f1f5f9;
+	color: #0f172a;
+	border-color: #94a3b8;
+}
+
+.wpcal-filter-btn:focus-visible {
+	outline: 2px solid var(--wpcal-accent, #2563eb);
+	outline-offset: 2px;
+}
+
+.wpcal-filter-btn.is-active {
+	background: var(--wpcal-accent, #2563eb);
+	color: #ffffff;
+	border-color: var(--wpcal-accent, #2563eb);
+	box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+/* ==========================================================================
+   Vertical Layout (Symmetrical & Connected)
+   ========================================================================== */
+
+.wpcal-layout-vertical .wpcal-vertical-container {
+	position: relative;
+	padding: 1rem 0;
+}
+
+/* Center or side continuous line */
+.wpcal-layout-vertical .wpcal-timeline-line {
+	position: absolute;
+	top: 10px;
+	bottom: 10px;
+	left: 50%;
+	width: 3px;
+	background-color: var(--wpcal-line, #e2e8f0);
+	transform: translateX(-50%);
+	z-index: 1;
+}
+
+.wpcal-layout-vertical.wpcal-vertical-left .wpcal-timeline-line {
+	left: 20px;
+	transform: none;
+}
+
+.wpcal-layout-vertical.wpcal-vertical-right .wpcal-timeline-line {
+	left: auto;
+	right: 20px;
+	transform: none;
+}
+
+.wpcal-layout-vertical .wpcal-timeline-items {
+	position: relative;
+	z-index: 2;
+}
+
+/* Vertical Symmetrical Row */
+.wpcal-layout-vertical .wpcal-timeline-item {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	position: relative;
+	width: 100%;
+	margin-bottom: 2.25rem;
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.wpcal-timeline-item.is-filtered-out {
+	display: none !important;
+}
+
+/* Left item configuration (Desktop) */
+.wpcal-layout-vertical .wpcal-item-left .wpcal-timeline-card {
+	order: 1;
+	width: calc(50% - 32px);
+	text-align: start;
+	margin: 0;
+}
+
+.wpcal-layout-vertical .wpcal-item-left .wpcal-timeline-marker {
+	order: 2;
+	position: relative;
+	z-index: 3;
+	margin: 16px 0 0 0;
+	width: var(--wpcal-marker-size, 18px);
+	height: var(--wpcal-marker-size, 18px);
+	flex-shrink: 0;
+}
+
+.wpcal-layout-vertical .wpcal-item-left .wpcal-timeline-meta {
+	order: 3;
+	width: calc(50% - 32px);
+	padding: 14px 0 0 24px;
+	text-align: start;
+}
+
+/* Right item configuration (Desktop) */
+.wpcal-layout-vertical .wpcal-item-right .wpcal-timeline-meta {
+	order: 1;
+	width: calc(50% - 32px);
+	padding: 14px 24px 0 0;
+	text-align: end;
+}
+
+.wpcal-layout-vertical .wpcal-item-right .wpcal-timeline-marker {
+	order: 2;
+	position: relative;
+	z-index: 3;
+	margin: 16px 0 0 0;
+	width: var(--wpcal-marker-size, 18px);
+	height: var(--wpcal-marker-size, 18px);
+	flex-shrink: 0;
+}
+
+.wpcal-layout-vertical .wpcal-item-right .wpcal-timeline-card {
+	order: 3;
+	width: calc(50% - 32px);
+	text-align: start;
+	margin: 0;
+}
+
+/* Meta side styling (Date & Badges) */
+.wpcal-timeline-meta {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.wpcal-meta-date {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: var(--wpcal-accent, #2563eb);
+	line-height: 1.2;
+}
+
+.wpcal-meta-badge {
+	display: inline-block;
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: 2px 8px;
+	border-radius: 4px;
+	background: #f1f5f9;
+	color: #475569;
+	align-self: flex-start;
+}
+
+.wpcal-item-right .wpcal-meta-badge {
+	align-self: flex-end;
+}
+
+/* Single Side Left Mode */
+.wpcal-layout-vertical.wpcal-vertical-left .wpcal-timeline-item {
+	justify-content: flex-start;
+}
+
+.wpcal-layout-vertical.wpcal-vertical-left .wpcal-timeline-meta {
+	display: none !important;
+}
+
+.wpcal-layout-vertical.wpcal-vertical-left .wpcal-timeline-marker {
+	order: 1;
+	margin: 18px 0 0 11px;
+}
+
+.wpcal-layout-vertical.wpcal-vertical-left .wpcal-timeline-card {
+	order: 2;
+	width: calc(100% - 50px);
+	margin-left: 20px;
+}
+
+/* Single Side Right Mode */
+.wpcal-layout-vertical.wpcal-vertical-right .wpcal-timeline-item {
+	justify-content: flex-end;
+}
+
+.wpcal-layout-vertical.wpcal-vertical-right .wpcal-timeline-meta {
+	display: none !important;
+}
+
+.wpcal-layout-vertical.wpcal-vertical-right .wpcal-timeline-card {
+	order: 1;
+	width: calc(100% - 50px);
+	margin-right: 20px;
+}
+
+.wpcal-layout-vertical.wpcal-vertical-right .wpcal-timeline-marker {
+	order: 2;
+	margin: 18px 11px 0 0;
+}
+
+/* Marker Node Component */
+.wpcal-marker-node {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: var(--wpcal-item-accent, var(--wpcal-marker, #2563eb));
+	color: #ffffff;
+	box-shadow: 0 0 0 4px #ffffff, 0 2px 6px rgba(0, 0, 0, 0.12);
+	transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wpcal-timeline-item:hover .wpcal-marker-node {
+	transform: scale(1.18);
+}
+
+.wpcal-dot-marker {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #ffffff;
+}
+
+/* ==========================================================================
+   Card Styling
+   ========================================================================== */
+
+.wpcal-timeline-card {
+	background-color: var(--wpcal-card-bg, #ffffff);
+	border: 1px solid var(--wpcal-card-border, #e2e8f0);
+	border-radius: var(--wpcal-border-radius, 8px);
+	padding: 1.5rem;
+	position: relative;
+	transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wpcal-card-header {
+	margin-bottom: 0.75rem;
+}
+
+.wpcal-timeline-date {
+	display: inline-block;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: var(--wpcal-date, #64748b);
+	margin-bottom: 0.35rem;
+	margin-right: 0.5rem;
+}
+
+.wpcal-timeline-badge {
+	display: inline-block;
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: 0.2rem 0.55rem;
+	border-radius: 4px;
+	background: #f1f5f9;
+	color: var(--wpcal-accent, #2563eb);
+	margin-bottom: 0.35rem;
+}
+
+.wpcal-timeline-title {
+	margin: 0.35rem 0 0.5rem 0;
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: var(--wpcal-text, #1e293b);
+	line-height: 1.35;
+}
+
+.wpcal-timeline-image {
+	margin: 0.75rem 0 1rem 0;
+	border-radius: calc(var(--wpcal-border-radius, 8px) - 2px);
+	overflow: hidden;
+}
+
+.wpcal-card-img {
+	width: 100%;
+	height: auto;
+	display: block;
+	object-fit: cover;
+	max-height: 260px;
+}
+
+.wpcal-timeline-content {
+	font-size: 0.95rem;
+	color: var(--wpcal-text, #334155);
+	margin-bottom: 1rem;
+	line-height: 1.6;
+}
+
+.wpcal-timeline-content p:last-child {
+	margin-bottom: 0;
+}
+
+.wpcal-card-footer {
+	margin-top: 1rem;
+}
+
+.wpcal-timeline-btn {
+	display: inline-block;
+	background: var(--wpcal-item-accent, var(--wpcal-accent, #2563eb));
+	color: #ffffff;
+	padding: 0.55rem 1.25rem;
+	border-radius: calc(var(--wpcal-border-radius, 8px) - 2px);
+	font-size: 0.875rem;
+	font-weight: 600;
+	text-decoration: none;
+	transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.wpcal-timeline-btn:hover {
+	opacity: 0.92;
+	transform: translateY(-1px);
+	color: #ffffff;
+}
+
+.wpcal-timeline-btn:focus-visible {
+	outline: 2px solid var(--wpcal-accent, #2563eb);
+	outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Horizontal Layout (Clean & Aligned)
+   ========================================================================== */
+
+.wpcal-layout-horizontal .wpcal-horizontal-container {
+	position: relative;
+	border-radius: 12px;
+	padding: 10px 0;
+}
+
+/* Dedicated Side Gutters Mode - cards NEVER overlap buttons */
+.wpcal-layout-horizontal .wpcal-horizontal-container.wpcal-nav-pos-sides {
+	padding: 10px 58px;
+}
+
+/* Navigation Buttons Base Styling */
+.wpcal-nav-btn {
+	z-index: 25;
+	width: var(--wpcal-nav-btn-size, 42px);
+	height: var(--wpcal-nav-btn-size, 42px);
+	border-radius: var(--wpcal-nav-btn-radius, 50%);
+	background-color: var(--wpcal-nav-btn-bg, #ffffff);
+	color: var(--wpcal-nav-btn-color, #1e293b);
+	border: 1px solid var(--wpcal-card-border, #cbd5e1);
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+	font-size: calc(var(--wpcal-nav-btn-size, 42px) * 0.55);
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+	flex-shrink: 0;
+	padding: 0;
+}
+
+.wpcal-nav-btn:hover {
+	background-color: var(--wpcal-nav-btn-hover-bg, var(--wpcal-accent, #2563eb));
+	color: var(--wpcal-nav-btn-hover-color, #ffffff);
+	border-color: var(--wpcal-nav-btn-hover-bg, var(--wpcal-accent, #2563eb));
+	transform: scale(1.08);
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.wpcal-nav-btn:focus-visible {
+	outline: 2px solid var(--wpcal-accent, #2563eb);
+	outline-offset: 2px;
+}
+
+/* Side Buttons Positioning */
+.wpcal-nav-pos-sides .wpcal-nav-btn {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.wpcal-nav-pos-sides .wpcal-nav-prev {
+	left: 6px;
+}
+
+.wpcal-nav-pos-sides .wpcal-nav-next {
+	right: 6px;
+}
+
+.wpcal-nav-pos-sides .wpcal-nav-btn:hover {
+	transform: translateY(-50%) scale(1.08);
+}
+
+/* Top Header Controls */
+.wpcal-horizontal-top-controls {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 12px;
+	padding: 0 10px;
+}
+
+/* Bottom Controls */
+.wpcal-horizontal-bottom-controls {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+	margin-top: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+	.wpcal-layout-horizontal .wpcal-horizontal-container.wpcal-nav-pos-sides {
+		padding: 10px 42px;
+	}
+	.wpcal-nav-btn {
+		width: 34px;
+		height: 34px;
+		font-size: 18px;
+	}
+	.wpcal-nav-pos-sides .wpcal-nav-prev {
+		left: 2px;
+	}
+	.wpcal-nav-pos-sides .wpcal-nav-next {
+		right: 2px;
+	}
+}
+
+/* Track */
+.wpcal-horizontal-track {
+	display: flex;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	position: relative;
+	padding: 22px 24px 24px 24px;
+	width: 100%;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.wpcal-horizontal-track::-webkit-scrollbar {
+	display: none;
+}
+
+/* Continuous Horizontal Line */
+.wpcal-layout-horizontal .wpcal-timeline-line {
+	position: absolute;
+	top: 31px;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background-color: var(--wpcal-line, #e2e8f0);
+	z-index: 1;
+}
+
+.wpcal-layout-horizontal .wpcal-timeline-items {
+	display: flex;
+	gap: 1.5rem;
+	position: relative;
+	z-index: 2;
+}
+
+/* Horizontal Item Column */
+.wpcal-layout-horizontal .wpcal-timeline-item {
+	flex: 0 0 320px;
+	max-width: 320px;
+	width: 320px;
+	scroll-snap-align: start;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	position: relative;
+	z-index: 2;
+	margin-bottom: 0;
+	padding: 0;
+}
+
+.wpcal-layout-horizontal .wpcal-timeline-marker {
+	position: relative;
+	z-index: 3;
+	margin: 0 0 4px 24px;
+	width: var(--wpcal-marker-size, 18px);
+	height: var(--wpcal-marker-size, 18px);
+	flex-shrink: 0;
+}
+
+.wpcal-marker-stem {
+	width: 2px;
+	height: 12px;
+	background: var(--wpcal-line, #e2e8f0);
+	margin: 0 0 4px calc(24px + (var(--wpcal-marker-size, 18px) / 2) - 1px);
+	z-index: 2;
+}
+
+.wpcal-layout-horizontal .wpcal-timeline-card {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex: 1;
+	margin: 0;
+}
+
+/* ==========================================================================
+   Presets
+   ========================================================================== */
+
+/* Preset: Clean */
+.wpcal-preset-clean .wpcal-timeline-card {
+	box-shadow: none;
+	border: 1px solid var(--wpcal-card-border, #e2e8f0);
+}
+
+/* Preset: Cards */
+.wpcal-preset-cards .wpcal-timeline-card {
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+	border: 1px solid var(--wpcal-card-border, #e2e8f0);
+}
+
+.wpcal-preset-cards .wpcal-timeline-card:hover {
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.09), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+	transform: translateY(-2px);
+}
+
+/* Preset: Minimal */
+.wpcal-preset-minimal .wpcal-timeline-card {
+	border: none;
+	background: transparent;
+	padding: 0.5rem 0.75rem;
+	box-shadow: none;
+}
+
+/* Preset: Modern */
+.wpcal-preset-modern .wpcal-timeline-line {
+	background: linear-gradient(180deg, var(--wpcal-accent, #2563eb) 0%, var(--wpcal-line, #e2e8f0) 100%);
+}
+
+.wpcal-preset-modern.wpcal-layout-horizontal .wpcal-timeline-line {
+	background: linear-gradient(90deg, var(--wpcal-accent, #2563eb) 0%, var(--wpcal-line, #e2e8f0) 100%);
+}
+
+.wpcal-preset-modern .wpcal-timeline-card {
+	border: 1px solid rgba(226, 232, 240, 0.8);
+	box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+	backdrop-filter: blur(8px);
+}
+
+/* Preset: Compact */
+.wpcal-preset-compact .wpcal-timeline-item {
+	margin-bottom: 1.25rem;
+}
+
+.wpcal-preset-compact .wpcal-timeline-card {
+	padding: 0.875rem 1rem;
+}
+
+.wpcal-preset-compact .wpcal-timeline-title {
+	font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   Animations & Reduced Motion
+   ========================================================================== */
+
+.wpcal-has-animation .wpcal-animated-item {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wpcal-has-animation .wpcal-animated-item.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wpcal-timeline-wrap *,
+	.wpcal-has-animation .wpcal-animated-item,
+	.wpcal-timeline-btn,
+	.wpcal-filter-btn {
+		animation: none !important;
+		transition: none !important;
+		opacity: 1 !important;
+		transform: none !important;
+	}
+}
+
+/* ==========================================================================
+   Responsive Collapse (Mobile / Tablet <= 768px)
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+	.wpcal-layout-vertical .wpcal-timeline-line {
+		left: 20px;
+		transform: none;
+	}
+
+	.wpcal-layout-vertical .wpcal-timeline-meta {
+		display: none !important;
+	}
+
+	.wpcal-layout-vertical .wpcal-timeline-item {
+		width: 100% !important;
+		justify-content: flex-start !important;
+		margin-bottom: 1.75rem !important;
+	}
+
+	.wpcal-layout-vertical .wpcal-timeline-marker {
+		order: 1 !important;
+		margin: 18px 0 0 11px !important;
+	}
+
+	.wpcal-layout-vertical .wpcal-timeline-card {
+		order: 2 !important;
+		width: calc(100% - 50px) !important;
+		margin-left: 20px !important;
+	}
+
+	.wpcal-layout-horizontal .wpcal-timeline-item {
+		flex: 0 0 280px;
+		max-width: 280px;
+		width: 280px;
+	}
+
+	.wpcal-nav-btn {
+		display: none;
+	}
+}
+
+/* ==========================================================================
+   RTL Directional Support
+   ========================================================================== */
+
+[dir="rtl"] .wpcal-layout-vertical.wpcal-vertical-left .wpcal-timeline-line {
+	left: auto;
+	right: 20px;
+}
+
+[dir="rtl"] .wpcal-layout-vertical.wpcal-vertical-left .wpcal-timeline-marker {
+	margin: 18px 11px 0 0;
+}
+
+[dir="rtl"] .wpcal-layout-vertical.wpcal-vertical-left .wpcal-timeline-card {
+	margin-left: 0;
+	margin-right: 20px;
+}
